@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: unicap_service_api
+    command: uvicorn main:app --workers 1 --host 0.0.0.0 --port 8001 --reload
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./web/:/usr/src/
+    env_file:
+      - prod.env
+
+  celery:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: unicap_service_queue
+    command: celery -A tasks.tasks worker -c 1 --prefetch-multiplier 1 --loglevel=info
+    volumes:
+      - ./web/:/usr/src/
+    env_file:
+      - prod.env
+    depends_on:
+      - redis
+
+  postgres_db:
+    image: postgres:13-alpine
+    container_name: unicap_pgsql_prod
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - prod.env
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:6-alpine
+    container_name: unicap_service_redis
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
+  postgres_data:
