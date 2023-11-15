@@ -1,6 +1,6 @@
 from app.db.models import (
     UserModel,
-    TaskModel,
+    PageModel,
     ProductModel,
     Base
 )
