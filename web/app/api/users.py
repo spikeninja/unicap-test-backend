@@ -12,7 +12,6 @@ router = APIRouter()
 @router.get("/me", response_model=UserPublic)
 async def get_me(current_user: UserDB = Depends(get_current_user)):
     """"""
-
     return current_user
 
 

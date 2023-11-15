@@ -2,9 +2,8 @@ from fastapi import HTTPException, Depends, status
 
 from app.db.database import database
 from app.repositories.users import UserRepository
-from app.repositories.tasks import TasksRepository
-from app.db import UserModel, TaskModel, ProductModel
-from app.repositories.product import ProductsRepository
+from app.db import UserModel, PageModel, ProductModel
+from app.repositories.products import ProductRepository
 
 from app.core.security import decode_access_token, JWTBearer
 
@@ -13,12 +12,8 @@ def get_user_repository() -> UserRepository:
     return UserRepository(database=database, model=UserModel)
 
 
-def get_tasks_repository() -> TasksRepository:
-    return TasksRepository(database=database, model=TaskModel)
-
-
-def get_products_repository() -> ProductsRepository:
-    return ProductsRepository(database=database, model=ProductModel)
+def get_products_repository() -> ProductRepository:
+    return ProductRepository(database=database, model=ProductModel)
 
 
 async def get_current_user(
