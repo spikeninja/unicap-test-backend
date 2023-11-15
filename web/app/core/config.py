@@ -1,13 +1,11 @@
 import os
 
-# JWT CONFIGS
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 50
 SECRET_KEY = os.getenv(
     'SECRET_KEY',
     default='i_am_super_secret'
 )
-# DATABASE ================================
 
 PG_HOST = os.getenv(
     "POSTGRES_HOST",
@@ -37,3 +35,8 @@ DATABASE = os.getenv(
 LEVEL = os.getenv("LEVEL", default="DEV")
 
 POSTGRESQL_URL = f"postgresql+asyncpg://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG_PORT}/{DATABASE}"
+SYNC_POSTGRESQL_URL = f"postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG_PORT}/{DATABASE}"
+
+BACKEND_URL = os.getenv("BACKEND_URL")
+BROKER_URL = os.getenv("BROKER_URL")
+CACHE_URL = os.getenv("CACHE_URL")

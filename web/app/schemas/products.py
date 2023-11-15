@@ -1,10 +1,18 @@
 from app.schemas.mixins import DateTimeMixin
-from pydantic import BaseModel, EmailStr, constr
 
 
 class ProductDB(DateTimeMixin):
-    id: str
+    id: int
     name: str
-    email: EmailStr
+    state: str
+    location: str
+    image_src: str
+    product_url: str
 
-    hashed_password: str
+
+class PageDB(DateTimeMixin):
+    id: int
+    task_id: str
+    page_url: str
+
+    products: list[ProductDB]

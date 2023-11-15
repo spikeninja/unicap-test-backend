@@ -9,7 +9,7 @@ def retrieve_page(url: str, referer: str | None) -> str:
     print("Getting url: ", url)
 
     # add proxy?
-    user_agent = get_random_user_agent('../ext/user_agents.txt')
+    user_agent = get_random_user_agent('/usr/src/app/ext/user_agents.txt')
     headers = {
         'User-Agent': user_agent,
         'Accept-Encoding': 'gzip, deflate',
