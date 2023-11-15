@@ -6,7 +6,7 @@ class ProductDB(DateTimeMixin):
     name: str
     state: str
     location: str
-    image_src: str
+    image_src: str | None
     product_url: str
 
 

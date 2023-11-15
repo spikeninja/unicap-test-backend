@@ -8,7 +8,7 @@ def retrieve_page(url: str, referer: str | None) -> str:
     """"""
     print("Getting url: ", url)
 
-    # add proxy?
+    # add proxy
     user_agent = get_random_user_agent('/usr/src/app/ext/user_agents.txt')
     headers = {
         'User-Agent': user_agent,
@@ -17,12 +17,12 @@ def retrieve_page(url: str, referer: str | None) -> str:
         'Connection': 'keep-alive',
         'Referer': referer or 'https://www.google.com/',
     }
-    print("Headers Used: ", headers)
-    response = requests.get('https://www.olx.pl/moda/zegarki/', headers=headers)
+
+    response = requests.get(url, headers=headers)
     print("Response: ", response.status_code)
 
-    with open('brow5.html', 'w') as f:
-        f.write(response.text)
+    # with open('brow5.html', 'w') as f:
+    #     f.write(response.text)
 
     if not response.ok:
         raise ValueError(f'Cannot retrieve the page {url}, response: {response}')

@@ -39,10 +39,12 @@ async def get_result(
     products_repo: ProductRepository = Depends(get_products_repository),
 ):
     """"""
+    task = task_scrape_olx.AsyncResult(task_id=task_id, app=worker)
+    products = []
+    if task.state == "SUCCESS":
+        products = await products_repo.get_by_task_id(task_id=task_id)
 
-    products = await products_repo.get_by_task_id(task_id=task_id)
-
-    return products
+    return {"status": task.state, "pages": products}
 
 
 @router.get("/statuses/{task_id}")

@@ -22,6 +22,7 @@ def task_scrape_olx(self, url: str):
 
     data = []
     pages_urls = [url, f'{url}?page=2', f'{url}?page=3', f'{url}?page=4']
+    print('Pages Urls: ', pages_urls)
 
     for idx, page_url in enumerate(pages_urls):
         products = parse_olx(url=page_url)
