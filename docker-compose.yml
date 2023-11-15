@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile
     container_name: unicap_service_api
-    command: uvicorn main:app --workers 1 --host 0.0.0.0 --port 8008 --reload
+    command: uvicorn app.main:app --workers 1 --host 0.0.0.0 --port 8008 --reload
     ports:
       - "8008:8008"
     volumes:
@@ -19,7 +19,7 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile
     container_name: unicap_service_queue
-    command: celery -A tasks.tasks worker -c 1 --prefetch-multiplier 1 --loglevel=info
+    command: celery -A app.tasks.tasks worker -c 1 --prefetch-multiplier 1 --loglevel=info
     volumes:
       - ./web/:/usr/src/
     env_file:
